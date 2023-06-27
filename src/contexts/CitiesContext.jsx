@@ -6,6 +6,7 @@ const BASE_URL = 'http://localhost:8000';
 function CitiesProvider({ children }) {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentCity, setCurrentCity] = useState({});
 
   useEffect(function () {
     async function fetchCities() {
@@ -25,8 +26,23 @@ function CitiesProvider({ children }) {
 
     fetchCities();
   }, []);
+
+  async function getCity(id) {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${BASE_URL}/cities/${id}`);
+      if (!response.ok) throw new Error('Unkwon Error');
+      const data = await response.json();
+      setCurrentCity(data);
+    } catch (err) {
+      alert('There was an error loading data...');
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
+  }
   return (
-    <CitiesContext.Provider value={{ cities, isLoading }}>
+    <CitiesContext.Provider value={{ cities, isLoading, currentCity, getCity }}>
       {children}
     </CitiesContext.Provider>
   );
