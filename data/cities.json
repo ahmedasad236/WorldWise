@@ -35,6 +35,54 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "cityName": "Castello de la Plana",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-06-29T07:51:37.132Z",
+      "notes": "This is an amazing city",
+      "position": {
+        "lat": "40.007500074635985",
+        "lng": "-0.04892349243164063"
+      },
+      "id": 98443198
+    },
+    {
+      "cityName": "Abo Al Nomros City",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "2023-06-29T07:52:13.974Z",
+      "notes": "This is an amazing city",
+      "position": {
+        "lat": "29.95225736323297",
+        "lng": "31.221084594726566"
+      },
+      "id": 98443199
+    },
+    {
+      "cityName": "Al Hawamdeya City",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "2023-06-29T07:55:08.139Z",
+      "notes": "",
+      "position": {
+        "lat": "29.89185279369772",
+        "lng": "31.26691818237305"
+      },
+      "id": 98443200
+    },
+    {
+      "cityName": "Shabramant Village",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "2023-06-29T07:57:45.891Z",
+      "notes": "",
+      "position": {
+        "lat": "29.930837277088166",
+        "lng": "31.209154129028324"
+      },
+      "id": 98443201
     }
   ]
 }
