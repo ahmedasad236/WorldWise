@@ -1,26 +1,68 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useReducer } from 'react';
 
 const CitiesContext = createContext();
 const BASE_URL = 'http://localhost:8000';
 
+const initialState = {
+  cities: [],
+  isLoading: false,
+  currentCity: {},
+  error: ''
+};
+function reducer(state, action) {
+  switch (action.type) {
+    case 'loading':
+      return { ...state, isLoading: true };
+
+    case 'city/loaded':
+      return { ...state, currentCity: action.payload, isLoading: false };
+
+    case 'city/created':
+      return {
+        ...state,
+        isLoading: false,
+        cities: [...state.cities, action.payload],
+        currentCity: action.payload
+      };
+
+    case 'city/removed':
+      return {
+        ...state,
+        isLoading: false,
+        cities: state.cities.filter((city) => city.id !== action.payload),
+        currentCity: {}
+      };
+
+    case 'cities/loaded':
+      return { ...state, isLoading: false, cities: action.payload };
+
+    case 'rejected':
+      return { ...state, isLoading: false, error: action.payload };
+
+    default:
+      throw new Error('Unkown action type');
+  }
+}
+
 function CitiesProvider({ children }) {
-  const [cities, setCities] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentCity, setCurrentCity] = useState({});
+  const [{ cities, isLoading, currentCity, error }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   useEffect(function () {
     async function fetchCities() {
       try {
-        setIsLoading(true);
+        dispatch({ type: 'loading' });
         const response = await fetch(`${BASE_URL}/cities`);
         if (!response.ok) throw new Error('Unkwon Error');
         const data = await response.json();
-        setCities(data);
+        dispatch({ type: 'cities/loaded', payload: data });
       } catch (err) {
-        alert('There was an error loading data...');
-        console.log(err);
-      } finally {
-        setIsLoading(false);
+        dispatch({
+          type: 'rejected',
+          payload: 'There was an error loading data...'
+        });
       }
     }
 
@@ -28,23 +70,24 @@ function CitiesProvider({ children }) {
   }, []);
 
   async function getCity(id) {
+    if (Number(id) === currentCity.id) return;
     try {
-      setIsLoading(true);
+      dispatch({ type: 'loading' });
       const response = await fetch(`${BASE_URL}/cities/${id}`);
       if (!response.ok) throw new Error('Unkwon Error');
       const data = await response.json();
-      setCurrentCity(data);
+      dispatch({ type: 'city/loaded', payload: data });
     } catch (err) {
-      alert('There was an error loading data...');
-      console.log(err);
-    } finally {
-      setIsLoading(false);
+      dispatch({
+        type: 'rejected',
+        payload: 'There was an error loading data...'
+      });
     }
   }
 
   async function createCity(newCity) {
     try {
-      setIsLoading(true);
+      dispatch({ type: 'loading' });
       const response = await fetch(`${BASE_URL}/cities/`, {
         method: 'POST',
         body: JSON.stringify(newCity),
@@ -54,28 +97,27 @@ function CitiesProvider({ children }) {
       });
       if (!response.ok) throw new Error('Unkwon Error');
       const data = await response.json();
-      console.log(data);
-      setCities((cities) => [...cities, data]);
+      dispatch({ type: 'city/created', payload: data });
     } catch (err) {
-      alert('There was an error sending data.');
-      console.log(err);
-    } finally {
-      setIsLoading(false);
+      dispatch({
+        type: 'rejected',
+        payload: 'There was an error sending data.'
+      });
     }
   }
 
   async function removeCity(id) {
     try {
-      setIsLoading(true);
+      dispatch({ type: 'loading' });
       await fetch(`${BASE_URL}/cities/${id}`, {
         method: 'DELETE'
       });
-      setCities((cities) => cities.filter((city) => city.id !== id));
+      dispatch({ type: 'city/removed', payload: id });
     } catch (err) {
-      alert('There was an error removing the city.');
-      console.log(err);
-    } finally {
-      setIsLoading(false);
+      dispatch({
+        type: 'rejected',
+        payload: 'There was an error removing the city.'
+      });
     }
   }
   return (
@@ -83,6 +125,7 @@ function CitiesProvider({ children }) {
       value={{
         cities,
         isLoading,
+        error,
         currentCity,
         getCity,
         createCity,
