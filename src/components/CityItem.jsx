@@ -4,8 +4,12 @@ import { Link } from 'react-router-dom';
 import { useCities } from '../contexts/CitiesContext';
 
 function CityItem({ city }) {
-  const { currentCity } = useCities();
+  const { currentCity, removeCity } = useCities();
   const { cityName, emoji, date, id, position } = city;
+  async function handleRemoveCity(e) {
+    e.preventDefault();
+    await removeCity(id);
+  }
   return (
     <li>
       <Link
@@ -17,7 +21,12 @@ function CityItem({ city }) {
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}>{cityName}</h3>
         <time className={styles.date}>{formatDate(date)}</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        <button
+          className={styles.deleteBtn}
+          onClick={handleRemoveCity}
+        >
+          &times;
+        </button>
       </Link>
     </li>
   );
