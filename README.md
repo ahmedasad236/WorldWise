@@ -89,9 +89,7 @@ $ npm run dev
 
 ## usecases
 
-<iframe width="420" height="315"
-src="https://www.youtube.com/watch?v=dMjb4E_M6BM&list=PLUR8WVpUHN4TE48tURZ-EXoaOwIvYtyEp&index=1">
-</iframe>
+[![Video Title](https://img.youtube.com/vi/dMjb4E_M6BM/0.jpg)](https://www.youtube.com/watch?v=dMjb4E_M6BM)
 
 ## ✍️ Contributors
 

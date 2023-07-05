@@ -59,6 +59,30 @@
         "lng": "31.243572235107425"
       },
       "id": 98443201
+    },
+    {
+      "cityName": "Castello de la Plana",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2023-07-05T22:27:36.957Z",
+      "notes": "this was an amazing trip",
+      "position": {
+        "lat": "39.986590631428534",
+        "lng": "-0.04823684692382813"
+      },
+      "id": 98443202
+    },
+    {
+      "cityName": "Abo Al Nomros City",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "2023-07-05T22:31:48.664Z",
+      "notes": "It was an amazing trip",
+      "position": {
+        "lat": "29.964006700844646",
+        "lng": "31.220054626464847"
+      },
+      "id": 98443203
     }
   ]
 }
