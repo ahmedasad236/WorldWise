@@ -89,7 +89,7 @@ $ npm run dev
 
 ## usecases
 
-[![Video Title](https://img.youtube.com/vi/dMjb4E_M6BM/0.jpg)](https://www.youtube.com/watch?v=dMjb4E_M6BM)
+[![WorldWise](https://img.youtube.com/vi/dMjb4E_M6BM/0.jpg)](https://www.youtube.com/watch?v=dMjb4E_M6BM?autoplay=1&rel=0)
 
 ## ✍️ Contributors
 
